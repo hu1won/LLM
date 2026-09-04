@@ -46,9 +46,14 @@ mlx = [
   "mlx>=0.15",
   "mlx-lm>=0.15",
 ]
+web = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.27",
+]
 dev = [
   "pytest>=8.0",
   "ruff>=0.3",
+  "httpx>=0.27",
 ]
 
 [project.scripts]
@@ -68,6 +73,9 @@ packages = ["src/llmbench"]
 "models.yaml" = "llmbench/data/models.yaml"
 "config.example.yaml" = "llmbench/data/config.example.yaml"
 "data/sample_train.jsonl" = "llmbench/data/sample_train.jsonl"
+"src/llmbench/web/static/index.html" = "llmbench/web/static/index.html"
+"src/llmbench/web/static/styles.css" = "llmbench/web/static/styles.css"
+"src/llmbench/web/static/app.js" = "llmbench/web/static/app.js"
 
 [tool.hatch.build.targets.sdist]
 include = [

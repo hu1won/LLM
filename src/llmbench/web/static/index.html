@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LLMBench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <header class="top">
+      <div class="brand-block">
+        <p class="eyebrow">local workbench</p>
+        <h1 class="brand">LLMBench</h1>
+      </div>
+      <p class="tagline">Pick a model. Fine-tune on your machine. Chat without the cloud.</p>
+      <div class="platform-chip" id="platform-chip">detecting…</div>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Workbench sections">
+      <button class="tab is-active" data-tab="overview" role="tab" aria-selected="true">Overview</button>
+      <button class="tab" data-tab="models" role="tab" aria-selected="false">Models</button>
+      <button class="tab" data-tab="train" role="tab" aria-selected="false">Train</button>
+      <button class="tab" data-tab="chat" role="tab" aria-selected="false">Chat</button>
+    </nav>
+
+    <main>
+      <section id="panel-overview" class="panel is-active" role="tabpanel">
+        <h2>Machine</h2>
+        <p class="lede">What this host can run right now.</p>
+        <div class="stat-grid" id="platform-stats"></div>
+        <ul class="notes" id="platform-notes"></ul>
+      </section>
+
+      <section id="panel-models" class="panel" role="tabpanel" hidden>
+        <h2>Catalog</h2>
+        <p class="lede">Models filtered by detected acceleration and memory.</p>
+        <div class="toolbar">
+          <label>
+            Method
+            <select id="filter-method">
+              <option value="qlora">qlora</option>
+              <option value="lora">lora</option>
+            </select>
+          </label>
+          <label>
+            Backend
+            <select id="filter-backend">
+              <option value="auto">auto</option>
+              <option value="mlx">mlx</option>
+              <option value="transformers">transformers</option>
+              <option value="unsloth">unsloth</option>
+            </select>
+          </label>
+          <button type="button" class="ghost" id="refresh-models">Refresh</button>
+        </div>
+        <div class="model-list" id="model-list"></div>
+      </section>
+
+      <section id="panel-train" class="panel" role="tabpanel" hidden>
+        <h2>Train</h2>
+        <p class="lede">Edit the run config, preview the plan, then start LoRA/QLoRA.</p>
+        <form id="train-form" class="form-grid">
+          <label>
+            Model
+            <select id="cfg-model" name="model"></select>
+          </label>
+          <label>
+            Method
+            <select id="cfg-method" name="method">
+              <option value="qlora">qlora</option>
+              <option value="lora">lora</option>
+            </select>
+          </label>
+          <label>
+            Backend
+            <select id="cfg-backend" name="backend">
+              <option value="auto">auto</option>
+              <option value="mlx">mlx</option>
+              <option value="transformers">transformers</option>
+              <option value="unsloth">unsloth</option>
+            </select>
+          </label>
+          <label class="span-2">
+            Dataset (JSONL)
+            <input id="cfg-dataset" name="dataset" type="text" />
+          </label>
+          <label class="span-2">
+            Output dir
+            <input id="cfg-output" name="output_dir" type="text" />
+          </label>
+          <label>
+            Epochs
+            <input id="cfg-epochs" name="epochs" type="number" min="1" step="1" />
+          </label>
+          <label>
+            LoRA r
+            <input id="cfg-lora-r" name="lora_r" type="number" min="1" step="1" />
+          </label>
+          <div class="actions span-2">
+            <button type="button" class="ghost" id="save-config">Save config</button>
+            <button type="button" class="ghost" id="dry-run">Dry run</button>
+            <button type="button" class="primary" id="start-train">Start train</button>
+          </div>
+        </form>
+        <pre class="log" id="train-log" aria-live="polite">Ready.</pre>
+      </section>
+
+      <section id="panel-chat" class="panel" role="tabpanel" hidden>
+        <h2>Chat</h2>
+        <p class="lede">Stream against an Ollama model from the catalog.</p>
+        <div class="toolbar">
+          <label>
+            Model
+            <select id="chat-model"></select>
+          </label>
+          <button type="button" class="ghost" id="clear-chat">Clear</button>
+        </div>
+        <div class="chat-thread" id="chat-thread"></div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" type="text" placeholder="Ask something local…" autocomplete="off" />
+          <button type="submit" class="primary">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span id="version">LLMBench</span>
+      <span>localhost only · your weights stay on disk</span>
+    </footer>
+    <script src="/static/app.js" type="module"></script>
+  </body>
+</html>

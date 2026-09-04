@@ -64,6 +64,21 @@ pip install -e '.[mlx]'
 llmbench train -c config.yaml
 ```
 
+## Web UI
+
+```bash
+pip install -e '.[web]'
+llmbench ui
+# → http://127.0.0.1:7860
+```
+
+Browser workbench with the same flows as the CLI:
+
+- **Overview** — platform / GPU detection  
+- **Models** — catalog + runnable filter  
+- **Train** — edit config, dry-run, start training  
+- **Chat** — Ollama streaming chat  
+
 ## Config
 
 Copy `config.example.yaml` → `config.yaml` (or run `llmbench init`):
@@ -88,6 +103,7 @@ Sample data: `data/sample_train.jsonl`.
 | `llmbench train -c config.yaml` | Fine-tune |
 | `llmbench train --dry-run` | Show plan only |
 | `llmbench chat` | Ollama streaming chat |
+| `llmbench ui` | Local Web UI (needs `.[web]`) |
 
 ## Platform notes
 
@@ -111,9 +127,14 @@ src/llmbench/
   platform_info.py       # mac / win / linux detection
   catalog.py             # models.yaml loader + filters
   doctor.py
+  service.py             # shared helpers for CLI + API
   backends/
     train.py             # transformers / mlx / unsloth adapters
     infer.py             # Ollama chat
+  web/
+    app.py               # FastAPI app
+    api.py               # JSON + SSE endpoints
+    static/              # Overview / Models / Train / Chat UI
 ```
 
 ## Roadmap
@@ -122,8 +143,9 @@ src/llmbench/
 - [x] Ollama chat
 - [x] CUDA QLoRA via transformers/peft/trl
 - [x] MLX LoRA adapter scaffold
+- [x] Web UI skeleton (config / models / train / chat)
 - [ ] Merge LoRA adapter into GGUF → Ollama Modelfile
-- [ ] Web UI for config / dataset / train progress
+- [ ] Train progress streaming in the UI
 - [ ] More trainers (full Unsloth path, LLaMA-Factory)
 
 ## License

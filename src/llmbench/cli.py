@@ -205,6 +205,26 @@ def init_cmd(
     console.print(f"[green]Wrote {target}[/green] — edit it, then run llmbench doctor")
 
 
+@app.command("ui")
+def ui_cmd(
+    host: str = typer.Option("127.0.0.1", help="Bind host"),
+    port: int = typer.Option(7860, help="Bind port"),
+    reload: bool = typer.Option(False, help="Auto-reload (dev)"),
+) -> None:
+    """Launch the local Web UI (requires: pip install llmbench[web])."""
+    try:
+        import uvicorn
+    except ImportError as exc:
+        console.print(
+            "[red]Web extras not installed.[/red]\n"
+            "  pip install 'llmbench\\[web]'"
+        )
+        raise typer.Exit(code=1) from exc
+
+    console.print(f"Opening LLMBench UI at [bold]http://{host}:{port}[/bold]")
+    uvicorn.run("llmbench.web.app:app", host=host, port=port, reload=reload)
+
+
 def main() -> None:
     app()
 
