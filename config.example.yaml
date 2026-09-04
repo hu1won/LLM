@@ -1,0 +1,26 @@
+# Copy to config.yaml and edit.
+#   cp config.example.yaml config.yaml
+#   llmbench doctor
+#   llmbench train -c config.yaml
+
+model: qwen2.5-3b          # id from models.yaml
+method: qlora              # lora | qlora
+backend: auto              # auto | unsloth | transformers | mlx
+dataset: ./data/sample_train.jsonl
+output_dir: ./outputs/run-001
+
+train:
+  epochs: 1
+  learning_rate: 2.0e-4
+  batch_size: 2
+  grad_accum: 4
+  max_seq_len: 1024
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+
+infer:
+  backend: ollama          # ollama | transformers | mlx
+  host: http://127.0.0.1:11434
+  temperature: 0.7
+  max_tokens: 512

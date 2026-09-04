@@ -1,0 +1,5 @@
+{"instruction": "Translate to Korean.", "input": "Hello, world!", "output": "안녕, 세상!"}
+{"instruction": "Summarize in one sentence.", "input": "Local LLMs let you run models on your own machine without sending data to the cloud.", "output": "Local LLMs run models on your device so data stays private."}
+{"instruction": "Rewrite more politely.", "input": "Send me the file now.", "output": "Could you please send me the file when you have a moment?"}
+{"instruction": "Extract the city name.", "input": "The meetup will be held in Seoul next Friday.", "output": "Seoul"}
+{"instruction": "Answer briefly.", "input": "What is LoRA fine-tuning?", "output": "LoRA trains small adapter weights instead of updating the full model, so fine-tuning needs less memory."}

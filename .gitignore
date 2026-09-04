@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+.env
+.python-version
+
+# Training outputs
+outputs/
+runs/
+checkpoints/
+adapters/
+*.gguf
+*.safetensors
+wandb/
+.cache/
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+.pytest_cache/
+
+# Local config / data
+config.yaml
+data/private/
+*.log
